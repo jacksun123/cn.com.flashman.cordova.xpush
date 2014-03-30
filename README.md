@@ -1,7 +1,7 @@
 cn.com.flashman.cordova.xpush
 =============================
 
-百度推送cordova/phonegap插件
+百度推送cordova/phonegap插件(目前只支持Android)
 
 Example:
 
@@ -27,3 +27,19 @@ OR:
 
 	Eclipse -> New -> Other -> Android Project from Existing Code
 	From "./example/"
+
+
+注意事项：
+
+	Android
+
+	修改AndroidManifest.xml
+	    <!-- 在百度开发者中心查询应用的API Key -->
+	    <meta-data android:name="api_key" android:value="YYWwiP0RXLeRdhx6BECbIQnD" />
+	    <!-- push service end -->
+
+	下需要在AndroidManifest.xml中添加属性，否则执行绑定时会报错。
+		<application android:name="com.baidu.frontia.FrontiaApplication" .../>
+
+	主Activity里添加属性
+		<activity android:launchMode="singleTask" .../>
