@@ -38,7 +38,7 @@ OR:
 	    <meta-data android:name="api_key" android:value="YYWwiP0RXLeRdhx6BECbIQnD" />
 	    <!-- push service end -->
 
-	下需要在AndroidManifest.xml中添加属性，否则执行绑定时会报错。
+	需要在AndroidManifest.xml中添加属性，否则执行绑定时会报错。
 		<application android:name="com.baidu.frontia.FrontiaApplication" .../>
 
 	主Activity里添加属性
