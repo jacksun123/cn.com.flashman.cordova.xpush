@@ -1,0 +1,18 @@
+# view AndroidManifest.xml #generated:12
+-keep class cn.com.flashman.cordova.xpush.BaiduMessageReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:37
+-keep class com.baidu.android.pushservice.PushService { <init>(...); }
+
+# view AndroidManifest.xml #generated:19
+-keep class com.baidu.android.pushservice.PushServiceReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:27
+-keep class com.baidu.android.pushservice.RegistrationReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:5
+-keep class com.baidu.frontia.FrontiaApplication { <init>(...); }
+
+# view AndroidManifest.xml #generated:6
+-keep class com.example.hello.HelloWorld { <init>(...); }
+
