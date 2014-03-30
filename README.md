@@ -43,3 +43,7 @@ OR:
 
 	主Activity里添加属性
 		<activity android:launchMode="singleTask" .../>
+
+推送消息测试
+
+	见 Baidu-Push-SDK-Php-2.0.4-basic/sample/sample.php
