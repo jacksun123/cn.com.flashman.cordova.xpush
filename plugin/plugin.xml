@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cn.com.flashman.cordova.xpush"
+    version="0.0.1">
+    <name>XPush</name>
+    <description>XPush Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,push,baidu</keywords>
+    <repo>https://github.com/zhushunqing/cordova-xpush</repo>
+    <issue>https://github.com/zhushunqing/cordova-xpush/issue</issue>
+
+    <js-module name="Baidu" src="www/baidu.js">
+        <clobbers target="cordova.plugins.XPush.Baidu" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Baidu" >
+                <param name="android-package" value="cn.com.flashman.cordova.xpush.Baidu"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <!-- Push service 运行需要的权限 -->
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+            <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+            <uses-permission android:name="android.permission.VIBRATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+            <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+            <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+             
+            <!-- push应用定义消息receiver声明 -->
+            <receiver android:name="cn.com.flashman.cordova.xpush.BaiduMessageReceiver">
+                <intent-filter>
+                    <!-- 接收push消息 -->
+                    <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                    <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                    <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                    <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+                </intent-filter>
+            </receiver>
+            
+            <!-- push必须的receviver和service声明 -->
+            <receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
+                android:process=":bdservice_v1">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
+                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                    <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                    <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                </intent-filter>
+            </receiver>
+            <receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
+                android:process=":bdservice_v1">
+                <intent-filter>
+                    <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                    <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+                </intent-filter>
+                <intent-filter>
+                    <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                    <data android:scheme="package" />
+                </intent-filter>                   
+            </receiver>
+            <service
+                android:name="com.baidu.android.pushservice.PushService"
+                android:exported="true"
+                android:process=":bdservice_v1" />
+            <!-- push结束 -->
+            
+            <!-- 在百度开发者中心查询应用的API Key -->
+            <meta-data android:name="api_key" android:value="YYWwiP0RXLeRdhx6BECbIQnD" />
+            <!-- push service end -->
+        </config-file>
+
+        <source-file src="src/android/Baidu.java" target-dir="src/cn/com/flashman/cordova/xpush" />
+        <source-file src="src/android/Utils.java" target-dir="src/cn/com/flashman/cordova/xpush" />
+        <source-file src="src/android/BaiduMessageReceiver.java" target-dir="src/cn/com/flashman/cordova/xpush" />
+
+        <!-- Baidu SDK Files -->
+        <source-file src="libs/baidu/pushservice-3.2.0.jar" target-dir="libs"/>
+        <source-file src="libs/baidu/x86/libbdpush_V1_0.so" target-dir="libs/x86"/>
+        <source-file src="libs/baidu/mips/libbdpush_V1_0.so" target-dir="libs/mips"/>
+        <source-file src="libs/baidu/armeabi/libbdpush_V1_0.so" target-dir="libs/armeabi"/>
+
+    </platform>
+
+</plugin>
