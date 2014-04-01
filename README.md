@@ -1,7 +1,7 @@
 cn.com.flashman.cordova.xpush
 =============================
 
-百度推送cordova/phonegap插件(目前只支持Android)
+百度push推送cordova/phonegap插件(目前只支持Android)
 
 Example:
 
